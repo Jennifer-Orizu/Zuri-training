@@ -233,10 +233,11 @@ h1{
     right: 1000px;
     top: 45px;
 }
-.password-error p{
-    position: relative;
-    left: 100px;
-    top: 65px;
+.password-error-msg{
+    position: absolute;
+    color: blue;
+    font-size: 49px;
+
 }
 svg{
     
@@ -246,6 +247,20 @@ button:focus + .first-name-error p,.last-name-error p, .email-error p, .password
 }
 .validation{
     position: absolute;
+}
+#error{
+    font-size: 10px;
+    color: red;
+    position: absolute;
+    left: 100px;
+    top: 70px;
+}
+#error .password-error{
+    font-size: 10px;
+    color:blue;
+    position: absolute;
+    left: 100px;
+    top: 70px;
 }
 </style>
 
@@ -273,50 +288,42 @@ button:focus + .first-name-error p,.last-name-error p, .email-error p, .password
                         <p class="sub-text"><strong class="bold-text">Try it free 7 days </strong>then $20/mo. thereafter</p>
                 </div>
 
-                    <div class="input-content">
-                        <div class="input-grid">
-                                <div class="first-name-error">
-                                    <input class="first-name" type="name" placeholder="First Name">
-                                    <svg class="first-name-error-svg" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle fill="#FF7979" cx="12" cy="12" r="12"/><rect fill="#FFF" x="11" y="6" width="2" height="9" rx="1"/><rect fill="#FFF" x="11" y="17" width="2" height="2" rx="1"/></g></svg>
-                                    
+                    <div class="input-content" id="form">
+                        <div id="error"></div>
+                        <form class="input-grid">
+                               
+                            
+                            <div class="first-name-error">
+                                    <input class="first-name" id="first-name" type="name" placeholder="First Name">    
                                 </div>
 
-                                <div class="last-name-error">
-                                    <input class="last-name" type="name" placeholder="Last Name">
-                                    <svg class="last-name-error-svg" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle fill="#FF7979" cx="12" cy="12" r="12"/><rect fill="#FFF" x="11" y="6" width="2" height="9" rx="1"/><rect fill="#FFF" x="11" y="17" width="2" height="2" rx="1"/></g></svg>
-                                    
-                                </div>
-
-                                <div class="email-error">
-                                    <input  class="email" type="email" placeholder="Email Address">
-                                    <svg class="email-error-svg" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle fill="#FF7979" cx="12" cy="12" r="12"/><rect fill="#FFF" x="11" y="6" width="2" height="9" rx="1"/><rect fill="#FFF" x="11" y="17" width="2" height="2" rx="1"/></g></svg>
                                 
-
-                                    
+                               
+                                <div class="last-name-error">
+                                    <input class="last-name" id="last-name" type="name" placeholder="Last Name">
                                 </div>
+
+                               
+                               
+                                <div class="email-error">
+                                    <input  class="email" id="email" type="email" placeholder="Email Address">
+                                </div>
+
+
 
                                 <div class="password-error">
-                                    <input class="password" type="password" placeholder="Password">
-                                    <svg class="password-error-svg" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle fill="#FF7979" cx="12" cy="12" r="12"/><rect fill="#FFF" x="11" y="6" width="2" height="9" rx="1"/><rect fill="#FFF" x="11" y="17" width="2" height="2" rx="1"/></g></svg>
-                                  
+                                    <div id="password-error-msg"></div>
+                                    <input class="password" id="password" type="password" placeholder="Password">
                                 </div>
-                                    <button>claim your free trial </button>
+                                    
+                                    <button type="submit">claim your free trial </button>
                                     <p class="text-button">By clicking the button you are agreeing to our <span class="red-text" style="color:rgb(247, 41, 14);">Terms and Services</span></p>
-                        </div>
+                        </form>
                     </div>
             </div>
 
 
-         <div class="validation">
-            <p>First Name cannot be empty</p>
-            <p>Last Name cannot be empty</p>
-            <div class="email-error-msg">email@example/com</div>
-            <p>Looks like it is not an email</p>
-            <p>Password cannot be empty</p>
-
-
-         </div>
-
+         
     
 
 
@@ -393,6 +400,35 @@ button:focus + .first-name-error p,.last-name-error p, .email-error p, .password
 
 
 
+<script>
+let firstName = document.getElementById('first-name');
+let lastName = document.getElementById('last-name');
+let email = document.getElementById('email');
+let password = document.getElementById('password');
+let form = document.getElementById('form');
+let errorElement = document.getElementById('error');
+let errorPassword = document.getElementById('password-error-msg');
 
+form.addEventListener('submit' , (e) =>{
+ let messages = []   
+ if (firstName.value === ''|| firstName.value == null) {
+    messages.push('first name is required')
+ }
+ if (password.value.length <= 6){
+    messages.push('Password should be more than 6 characters.') }
+    errorPassword.innerText = messages.join(',')
+ if (messages.length > 0){
+    e.preventDefault()}
+    errorElement.innerText = messages.join('')
+
+})
+
+
+
+
+
+
+
+</script>
 </body>
 </html>
